@@ -15,7 +15,7 @@ frontend:
       commands:
         - npm run build
   artifacts:
-    baseDirectory: /dist/demo-amplify-blog-app
+    baseDirectory: /dist/demo-amplify-blog-app/browser
     files:
       - '**/*'
   cache:
