@@ -16,7 +16,7 @@
       "function": {
         "blogsLambda": {
           "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",
-          "s3Key": "amplify-builds/blogsLambda-30727034664c71542b46-build.zip"
+          "s3Key": "amplify-builds/blogsLambda-5337364e4d4b37584173-build.zip"
         },
         "profileLambda": {
           "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",

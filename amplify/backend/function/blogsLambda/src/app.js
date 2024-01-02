@@ -24,15 +24,15 @@ app.use(function(req, res, next) {
 });
 
 // database
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import {
+const { DynamoDBClient } = require('@aws-sdk/client-dynamodb');
+const {
   DeleteCommand,
   DynamoDBDocumentClient,
   GetCommand,
   PutCommand,
   ScanCommand,
   UpdateCommand
-} from '@aws-sdk/lib-dynamodb';
+} = require('@aws-sdk/lib-dynamodb');
 
 const tableName = 'demo-blog-table';
 

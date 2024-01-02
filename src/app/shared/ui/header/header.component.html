@@ -1,5 +1,5 @@
 <mat-toolbar class="home-header" color="primary">
-  <span>Xiaotian's First Angular Project !!!</span>
+  <span>{{title}}</span>
   <span class="toolbar-spacer"></span>
   <nav>
     <a mat-button routerLink="/home">Home</a>
@@ -9,5 +9,8 @@
   </nav>
   <nav>
     <a mat-button routerLink="/blog/create">Create New Blog</a>
+  </nav>
+  <nav>
+    <a (click)="onSignOut()">Logout</a>
   </nav>
 </mat-toolbar>
