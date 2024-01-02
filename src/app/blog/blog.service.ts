@@ -46,7 +46,7 @@ export class BlogService {
   private async getBlogsFromAmplify() {
     try {
       const restOperation = get({
-        apiName: 'api',
+        apiName: 'blogsApi',
         path: '/blogs'
       });
       console.log('GET call succeeded: ');
