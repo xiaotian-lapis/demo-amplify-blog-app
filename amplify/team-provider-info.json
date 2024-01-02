@@ -9,7 +9,26 @@
       "UnauthRoleName": "amplify-demoamplifyblogapp-staging-20323-unauthRole",
       "StackName": "amplify-demoamplifyblogapp-staging-20323",
       "StackId": "arn:aws:cloudformation:ap-southeast-2:305461492709:stack/amplify-demoamplifyblogapp-staging-20323/1c223260-a913-11ee-92ff-0a7c7efd20db",
-      "AmplifyAppId": "d2r26gr0loqjl0"
+      "AmplifyAppId": "d2r26gr0loqjl0",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-demoamplifyblogapp-staging-20323-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "blogsLambda": {
+          "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",
+          "s3Key": "amplify-builds/blogsLambda-6d51753063586d79354f-build.zip"
+        },
+        "profileLambda": {
+          "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",
+          "s3Key": "amplify-builds/profileLambda-68536b503563304b464a-build.zip"
+        }
+      },
+      "auth": {
+        "demoamplifyblogapp": {}
+      },
+      "api": {
+        "blogsApi": {}
+      }
     }
   }
 }
