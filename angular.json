@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "@angular/material/prebuilt-themes/indigo-pink.css"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "@aws-amplify/ui-angular/theme.css"
             ],
             "scripts": []
           },
