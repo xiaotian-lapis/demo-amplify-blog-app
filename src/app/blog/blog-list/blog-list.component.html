@@ -1,0 +1,77 @@
+<div class="blog-list">
+  <div *ngIf="viewStatus$ | async as viewStatus">
+    <div *ngIf="equals(viewStatus, ViewStatus.Initial)">Initializing...</div>
+
+    <div
+      *ngIf="
+        or(
+          equals(viewStatus, ViewStatus.Loading),
+          equals(viewStatus, ViewStatus.Reloading)
+        )
+      "
+      class="loading"
+    >
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <mat-hint>Fetching blogs from backend...</mat-hint>
+    </div>
+
+    <div *ngIf="equals(viewStatus, ViewStatus.Failure)" class="error">
+      Error loading blogs
+    </div>
+
+    <ng-container *ngIf="equals(viewStatus, ViewStatus.Success)">
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Sort Blogs By</mat-label>
+          <mat-select (selectionChange)="onSortFieldChange($event.value)" [(value)]="currentSortBy">
+            <mat-option *ngFor="let method of sortBy | keyvalue" [value]="method.value">
+              {{ method.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Sort Order</mat-label>
+          <mat-select (selectionChange)="onSortOrderChange($event.value)" [(value)]="currentSortOrder">
+            <mat-option *ngFor="let order of sortOrder | keyvalue" [value]="order.value">
+              {{ order.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <ng-container *ngIf="blogList$ | async as blogs; else noBlogsTemplate">
+        <ng-container *ngFor="let blog of blogs">
+          <mat-card class="blog-item">
+            <mat-card-header>
+              <mat-card-title>{{ blog.title }}</mat-card-title>
+              <mat-card-subtitle>{{ blog.author }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ blog.description }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                color="primary"
+                mat-button
+                routerLink="/blog/view/{{ blog.id }}"
+              >
+                View
+              </button>
+              <button mat-button routerLink="/blog/edit/{{ blog.id }}">
+                Edit
+              </button>
+              <button (click)="deleteBlog(blog.id)" color="warn" mat-button>
+                Delete
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<!-- Template for No Blogs -->
+<ng-template #noBlogsTemplate>
+  <div class="no-blogs">No blogs available.</div>
+</ng-template>
