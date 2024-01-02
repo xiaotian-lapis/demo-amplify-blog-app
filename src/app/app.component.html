@@ -4,7 +4,7 @@
     let-user="user"
     let-signOut="signOut"
   >
-    <app-header [title]="user.username" [onSignOut]="signOut()"></app-header>
+    <app-header [title]="'Welcome, ' + user.username" [onSignOut]="signOut"></app-header>
 
     <router-outlet></router-outlet>
 
