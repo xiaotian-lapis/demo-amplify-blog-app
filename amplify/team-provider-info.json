@@ -21,13 +21,19 @@
         "profileLambda": {
           "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",
           "s3Key": "amplify-builds/profileLambda-68536b503563304b464a-build.zip"
+        },
+        "AdminQueriesb09bf580": {
+          "deploymentBucketName": "amplify-demoamplifyblogapp-staging-20323-deployment",
+          "s3Key": "amplify-builds/AdminQueriesb09bf580-586a746f426772627368-build.zip"
         }
       },
       "auth": {
-        "demoamplifyblogapp": {}
+        "demoamplifyblogapp": {},
+        "userPoolGroups": {}
       },
       "api": {
-        "blogsApi": {}
+        "blogsApi": {},
+        "AdminQueries": {}
       }
     }
   }

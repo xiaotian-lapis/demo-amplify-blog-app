@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "demoamplifyblogapp_identitypool_bbe60b48",
-    "allowUnauthenticatedIdentities": true,
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "demoambbe60b48",
     "userPoolName": "demoamplifyblogapp_userpool_bbe60b48",
     "autoVerifiedAttributes": [
@@ -37,6 +37,37 @@
     "resourceName": "demoamplifyblogapp",
     "sharedId": "bbe60b48",
     "serviceName": "Cognito",
-    "useDefault": "manual"
+    "useDefault": "manual",
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "useEnabledMfas": true,
+    "dependsOn": [],
+    "hostedUI": false,
+    "userPoolGroupList": [
+      "readers",
+      "writers",
+      "admins"
+    ],
+    "authProviders": [],
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "triggers": {},
+    "adminQueryGroup": "admins",
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
   }
 }
