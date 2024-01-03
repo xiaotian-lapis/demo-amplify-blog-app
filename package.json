@@ -27,6 +27,7 @@
     "@ngrx/store-devtools": "^17.0.1",
     "@types/ramda": "^0.29.9",
     "aws-amplify": "^6.0.9",
+    "ng-recaptcha": "^13.2.1",
     "rambda": "^8.6.0",
     "ramda": "^0.29.1",
     "rxjs": "~7.8.0",

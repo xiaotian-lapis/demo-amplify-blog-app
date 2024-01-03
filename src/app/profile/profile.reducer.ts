@@ -31,10 +31,10 @@ export const profileReducer = createReducer(
   }),
   on(
     ProfileActions.updateProfile,
-    (state, { id, name, email, bio, password, age, updatedTime }) => {
+    (state, { id, name, email, bio, updatedTime }) => {
       console.log('updateProfile reducer triggered');
       console.log(state.entities);
-      const changes = { name, email, bio, password, age, updatedTime };
+      const changes = { name, email, bio, updatedTime };
       return adapter.updateOne({ id, changes }, state);
     },
   ),

@@ -80,8 +80,6 @@ export class ProfileComponent implements OnInit {
       name: this.profileForm.value.name ?? '',
       email: this.profileForm.value.email ?? '',
       bio: this.profileForm.value.bio ?? '',
-      password: this.profileForm.value.password ?? '',
-      age: this.profileForm.value.age ?? 0,
       updatedTime: new Date(),
     };
     console.log(formValue);
