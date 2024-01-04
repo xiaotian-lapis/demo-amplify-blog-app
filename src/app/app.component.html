@@ -1,15 +1,8 @@
 
-<div *ngIf="displayCaptcha">
-  <div>gogogo</div>
-  <re-captcha
-    (resolved)="handleRecaptchaConfirmSignIn($event)"
-    siteKey="6LcD5UMpAAAAAJD3mPyx98vfmiPylpUGUxAuwraC"
-  ></re-captcha>
+<div *ngIf="flag">
+  <div>Not passing Captcha</div>
 </div>
 <amplify-authenticator [formFields]="formFields" [services]="services">
-
-
-
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

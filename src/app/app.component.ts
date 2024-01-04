@@ -8,7 +8,7 @@ import { Amplify } from 'aws-amplify';
 import awsExports from '../aws-exports';
 import { signUp, signIn, confirmSignIn } from 'aws-amplify/auth';
 import { SignUpParameters } from './core/auth/signup.type';
-import { RecaptchaV3Module } from 'ng-recaptcha';
+import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +18,15 @@ import { RecaptchaV3Module } from 'ng-recaptcha';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(public authenticator: AuthenticatorService) {
+  constructor(
+    public authenticator: AuthenticatorService,
+    protected recaptchaV3Service: ReCaptchaV3Service,
+  ) {
     Amplify.configure(awsExports);
   }
 
   title = 'demo-amplify-blog-app';
-  displayCaptcha = false;
+  flag = false;
 
   services = {
     handleSignUp: async (formData: Record<string, any>) => {
@@ -56,14 +59,17 @@ export class AppComponent {
         });
 
         if (signInOutput.nextStep.signInStep === 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE') {
-          this.displayCaptcha = true;
-          console.log('displayCaptcha', this.displayCaptcha);
+          this.recaptchaV3Service.execute('login').subscribe((token) => {
+            this.handleRecaptchaConfirmSignIn(token);
+          }
+          );
         }
 
         return signInOutput;
 
       } catch (e) {
         console.log('Sign In Failed', e);
+        this.flag = true;
         throw e;
       }
     }
@@ -74,6 +80,7 @@ export class AppComponent {
       await confirmSignIn({ challengeResponse: event });
     } catch (e) {
       console.log('Confirm Sign In Failed', e);
+      this.flag = true;
     }
   }
 
