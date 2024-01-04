@@ -1,4 +1,8 @@
-<amplify-authenticator>
+
+<div *ngIf="flag">
+  <div>Not passing Captcha</div>
+</div>
+<amplify-authenticator [formFields]="formFields" [services]="services">
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

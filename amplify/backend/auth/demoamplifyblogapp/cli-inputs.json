@@ -26,13 +26,18 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+      "name",
+      "updated_at",
       "email"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "email",
+      "name",
+      "updated_at",
+      "email_verified"
     ],
     "userpoolClientLambdaRole": "demoambbe60b48_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "demoamplifyblogapp",
     "sharedId": "bbe60b48",
@@ -52,7 +57,35 @@
     },
     "breakCircularDependency": true,
     "useEnabledMfas": true,
-    "dependsOn": [],
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "demoamplifyblogappCreateAuthChallenge",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      },
+      {
+        "category": "function",
+        "resourceName": "demoamplifyblogappDefineAuthChallenge",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      },
+      {
+        "category": "function",
+        "resourceName": "demoamplifyblogappVerifyAuthChallengeResponse",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
     "hostedUI": false,
     "userPoolGroupList": [
       "readers",
@@ -61,13 +94,24 @@
     ],
     "authProviders": [],
     "thirdPartyAuth": false,
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "triggers": {},
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": {
+      "CreateAuthChallenge": [
+        "captcha-create-challenge"
+      ],
+      "DefineAuthChallenge": [
+        "captcha-define-challenge"
+      ],
+      "VerifyAuthChallengeResponse": [
+        "captcha-verify"
+      ]
+    },
     "adminQueryGroup": "admins",
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CreateAuthChallenge\",\n    \"lambdaFunctionName\": \"demoamplifyblogappCreateAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"DefineAuthChallenge\",\n    \"lambdaFunctionName\": \"demoamplifyblogappDefineAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"VerifyAuthChallengeResponse\",\n    \"lambdaFunctionName\": \"demoamplifyblogappVerifyAuthChallengeResponse\"\n  }\n]"
   }
 }

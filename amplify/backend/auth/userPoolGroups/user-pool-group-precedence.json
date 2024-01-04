@@ -1,7 +1,29 @@
 [
   {
     "groupName": "readers",
-    "precedence": 1
+    "precedence": 1,
+    "customPolicies": [
+      {
+        "PolicyName": "readers-group-api-policy",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": [
+                "execute-api:Invoke"
+              ],
+              "Resource": [
+                "arn:aws:execute-api:ap-southeast-2:305461492709:1jg4m8myqg/staging/GET/blogs/*",
+                "arn:aws:execute-api:ap-southeast-2:305461492709:1jg4m8myqg/staging/GET/blogs",
+                "arn:aws:execute-api:ap-southeast-2:305461492709:1jg4m8myqg/staging/GET/profile/*",
+                "arn:aws:execute-api:ap-southeast-2:305461492709:1jg4m8myqg/staging/GET/profile"
+              ],
+              "Effect": "Allow"
+            }
+          ]
+        }
+      }
+    ]
   },
   {
     "groupName": "writers",

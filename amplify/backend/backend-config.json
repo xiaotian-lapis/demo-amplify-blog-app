@@ -47,7 +47,35 @@
   },
   "auth": {
     "demoamplifyblogapp": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "demoamplifyblogappCreateAuthChallenge",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "demoamplifyblogappDefineAuthChallenge",
+          "triggerProvider": "Cognito"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "demoamplifyblogappVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -108,6 +136,21 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "demoamplifyblogappCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "demoamplifyblogappDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "demoamplifyblogappVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "profileLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -144,6 +187,62 @@
         {
           "category": "function",
           "resourceName": "blogsLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappCreateAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappCreateAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappDefineAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappDefineAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappVerifyAuthChallengeResponse_RECAPTCHASECRET": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappVerifyAuthChallengeResponse_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_demoamplifyblogappVerifyAuthChallengeResponse_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "demoamplifyblogappVerifyAuthChallengeResponse"
         }
       ]
     },
