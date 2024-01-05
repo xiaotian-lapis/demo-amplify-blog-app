@@ -3,7 +3,7 @@ import { get } from 'aws-amplify/api';
 export const getResponseJsonFromAmplifyApi = async<T> (
   apiName: string,
   apiPath: string,
-  authorizationToken?: any
+  authorizationToken?: string
 ): Promise<T> => {
   try {
     let options: any = {
@@ -23,7 +23,7 @@ export const getResponseJsonFromAmplifyApi = async<T> (
     const restOperation = get(
       options
     );
-    console.log('GET call succeeded: ');
+    console.log('GET call succeeded with options: ', options);
     const response = await restOperation.response;
     return await response.body.json() as T;
 

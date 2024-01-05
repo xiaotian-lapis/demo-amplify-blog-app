@@ -20,7 +20,7 @@ export class AdminService {
   listUsers(): Observable<User[]> {
     return from(fetchAuthSession()).pipe(
       switchMap(session => {
-        const accessToken = session.tokens?.accessToken.payload;
+        const accessToken = session.tokens?.accessToken.toString();
         return getResponseJsonFromAmplifyApi<ListUsersResponse>(
           this.apiName,
           '/listUsers',
