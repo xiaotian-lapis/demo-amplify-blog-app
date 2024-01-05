@@ -1,16 +1,10 @@
-import { Injectable, isDevMode } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { catchError, from, map, Observable, throwError } from 'rxjs';
 import { IBlog, IBlogApiResponse } from './blog.model';
-import { environment } from '../../environments/environment';
 import { get } from 'aws-amplify/api';
 
 @Injectable()
 export class BlogService {
-  private apiUrl = `${environment.apiUrl}/blogs`;
-
-  constructor(private http: HttpClient) {
-  }
 
   /**
    * Get blog from backend api
