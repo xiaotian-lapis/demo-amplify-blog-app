@@ -20,9 +20,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AppComponent {
   constructor(
-    public authenticator: AuthenticatorService,
     protected recaptchaV3Service: ReCaptchaV3Service,
-    private router: Router
   ) {
     Amplify.configure(awsExports);
   }
