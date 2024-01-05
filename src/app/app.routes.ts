@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { provideState } from '@ngrx/store';
-import { BLOGS_STATE_NAME, PROFILE_STATE_NAME } from './shared/constants/state.constant';
+import { ADMIN_STATE_NAME, BLOGS_STATE_NAME, PROFILE_STATE_NAME } from './shared/constants/state.constant';
 import { blogReducer } from './blog/blog.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { BlogEffects } from './blog/blog.effects';
@@ -8,6 +8,9 @@ import { profileReducer } from './profile/profile.reducer';
 import { ProfileEffects } from './profile/profile.effects';
 import { ProfileService } from './profile/profile.service';
 import { BlogService } from './blog/blog.service';
+import { AdminService } from './feature/admin/admin.service';
+import { AdminEffects } from './feature/admin/admin.effects';
+import { adminReducer } from './feature/admin/admin.reducer';
 
 export const routes: Routes = [
   {
@@ -53,5 +56,26 @@ export const routes: Routes = [
     ],
     loadChildren: () =>
       import('./profile/profile.routes').then((m) => m.PROFILE_ROUTES)
+  },
+
+  {
+    path: 'admin',
+    providers: [
+      AdminService,
+      provideState(
+        {
+          name: ADMIN_STATE_NAME,
+          reducer: adminReducer
+        }
+      ),
+      provideEffects([AdminEffects])
+    ],
+    loadChildren: () =>
+      import('./feature/admin/admin.routes').then((m) => m.ADMIN_ROUTES)
+  },
+
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ];
