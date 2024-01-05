@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { from, map, Observable } from 'rxjs';
-import { get } from 'aws-amplify/api';
+import { from, map, Observable, switchMap, throwError } from 'rxjs';
 import { getResponseJsonFromAmplifyApi } from '../../shared/utils/amplify.util';
 import { User } from '../../shared/models/user.model';
 import { ListUsersResponse } from './admin.model';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,19 @@ export class AdminService {
    * Get users from AWS Amplify admin query
    */
   listUsers(): Observable<User[]> {
-    return from(getResponseJsonFromAmplifyApi<ListUsersResponse>(
-      this.apiName,
-      '/listUsers'
-    )).pipe(map(res => {
-      console.log('listUsers res: ', res);
-      return res.Users;
-    }));
+    return from(fetchAuthSession()).pipe(
+      switchMap(session => {
+        const accessToken = session.tokens?.accessToken.payload;
+        return getResponseJsonFromAmplifyApi<ListUsersResponse>(
+          this.apiName,
+          '/listUsers',
+          accessToken
+        );
+      }),
+      map(res => {
+        console.log('listUsers res: ', res);
+        return res.Users;
+      })
+    );
   }
 }
