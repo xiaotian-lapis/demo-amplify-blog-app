@@ -15,6 +15,7 @@ export const getResponseJsonFromAmplifyApi = async<T> (
       options = {
         ...options,
         headers: {
+          'Content-Type' : 'application/json',
           Authorization: authorizationToken,
         },
       };
