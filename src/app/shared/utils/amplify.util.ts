@@ -6,14 +6,15 @@ export const getResponseJsonFromAmplifyApi = async<T> (
   authorizationToken?: string
 ): Promise<T> => {
   try {
-    let options: any = {
-        apiName: apiName,
-        path: apiPath,
-      };
 
+    let requestOptions: any = {
+      apiName: apiName,
+      apiPath: apiPath,
+    };
+
+    let options: any = undefined;
     if (authorizationToken) {
       options = {
-        ...options,
         headers: {
           'Content-Type' : 'application/json',
           Authorization: authorizationToken,
@@ -21,12 +22,16 @@ export const getResponseJsonFromAmplifyApi = async<T> (
       };
     }
 
-    const restOperation = get(
-      options
+    const GetOperation = get(
+      {
+        apiName,
+        path: apiPath,
+        options
+      }
     );
-    console.log('GET call succeeded with options: ', options);
-    const response = await restOperation.response;
-    return await response.body.json() as T;
+
+    const response = await GetOperation.response;
+    return (await response.body.json()) as T;
 
   } catch (error) {
     console.error('GET call failed: ', error);
