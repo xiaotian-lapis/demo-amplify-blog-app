@@ -22,45 +22,33 @@
 
     <ng-container *ngIf="equals(viewStatus, ViewStatus.Success)">
       <ng-container *ngIf="userList$ | async as users">
-        <ng-container *ngFor="let user of users">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>{{ user.Username }}</mat-card-title>
-              <mat-card-subtitle>{{ user.UserStatus }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <mat-list>
-                <mat-list-item>
-                  <mat-icon mat-list-icon>verified_user</mat-icon>
-                  <h4 mat-line>Enabled</h4>
-                  <p mat-line>{{ user.Enabled }}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <mat-icon mat-list-icon>verified_user</mat-icon>
-                  <h4 mat-line>Created</h4>
-                  <p mat-line>{{ user.UserCreateDate | date }}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <mat-icon mat-list-icon>verified_user</mat-icon>
-                  <h4 mat-line>Last Modified</h4>
-                  <p mat-line>{{ user.UserLastModifiedDate | date }}</p>
-                </mat-list-item>
-                <mat-list-item>
-                  <mat-icon mat-list-icon>verified_user</mat-icon>
-                  <h4 mat-line>Attributes</h4>
-                  <p mat-line>{{ user.Attributes }}</p>
-                </mat-list-item>
-              </mat-list>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>Disable</button>
-              <button mat-button>Reset Password</button>
-              <button mat-button>Remove from Group</button>
-              <button mat-button>Remove from Group</button>
-            </mat-card-actions>
-          </mat-card>
-        </ng-container>
+        <div class="user-cards">
+          <ng-container *ngFor="let user of users">
+            <div class="user-card">
+              <div class="user-card-header">
+                <h2>{{ user.Username }}</h2>
+                <p>{{ user.UserStatus }}</p>
+              </div>
+              <div class="user-card-content">
+                <p><strong>Enabled:</strong> {{ user.Enabled }}</p>
+                <p><strong>Created:</strong> {{ user.UserCreateDate | date }}</p>
+                <p><strong>Last Modified:</strong> {{ user.UserLastModifiedDate | date }}</p>
+                <p><strong>Attributes:</strong></p>
+                <ul>
+                  <li *ngFor="let attribute of user.Attributes">
+                    {{ attribute.Name }}: {{ attribute.Value }}
+                  </li>
+                </ul>
+              </div>
+              <div class="user-card-actions">
+                <button>Disable</button>
+                <button>Reset Password</button>
+                <button>Remove from Group</button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
     </ng-container>
-    </ng-container>
-</div>
   </div>
+</div>

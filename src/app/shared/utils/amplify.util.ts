@@ -22,6 +22,8 @@ export const getResponseJsonFromAmplifyApi = async<T> (
       };
     }
 
+    console.log('GET call succeeded: with options: ', options);
+
     const GetOperation = get(
       {
         apiName,

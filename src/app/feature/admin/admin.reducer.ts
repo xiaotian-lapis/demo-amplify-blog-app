@@ -10,7 +10,11 @@ export interface IAdminState extends EntityState<User> {
   viewStatus: ViewStatus;
 }
 
-export const adapter: EntityAdapter<User> = createEntityAdapter<User>();
+export const adapter: EntityAdapter<User> = createEntityAdapter<User>(
+  {
+    selectId: (user: User) => user.Username,
+  }
+);
 
 export const initialState: IAdminState = adapter.getInitialState({
   error: null,
@@ -33,6 +37,7 @@ export const adminReducer = createReducer(
     AdminActions.loadUserListSuccess,
     (state, { users }) => {
       console.log('loadUserListSuccess reducer triggered');
+      console.log('users: ', users);
       return adapter.setAll(users,
         { ...state, viewStatus: ViewStatus.Success }
       );

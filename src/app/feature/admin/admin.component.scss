@@ -1,0 +1,11 @@
+.user-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; // Space between cards
+
+  .user-card {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: auto; // Ensures all content is accessible
+  }
+}
