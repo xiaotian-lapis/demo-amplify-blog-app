@@ -1,7 +1,7 @@
 [
   {
     "groupName": "readers",
-    "precedence": 1,
+    "precedence": 2,
     "customPolicies": [
       {
         "PolicyName": "readers-group-api-policy",
@@ -28,10 +28,10 @@
   },
   {
     "groupName": "writers",
-    "precedence": 2
+    "precedence": 1
   },
   {
     "groupName": "admins",
-    "precedence": 3
+    "precedence": 0
   }
 ]
