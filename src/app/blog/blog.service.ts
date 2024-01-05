@@ -16,14 +16,15 @@ export class BlogService {
    * Get blog from backend api
    */
   getBlogs(): Observable<IBlog[]> {
-    return isDevMode() ? this.getBlogsForDev() : this.getBlogsForProd();
+    //return isDevMode() ? this.getBlogsForDev() : this.getBlogsForProd();
+    return this.getBlogsForProd();
   }
 
-  private getBlogsForDev(): Observable<IBlog[]> {
-    return this.http.get<IBlog[]>(this.apiUrl).pipe(
-      map(blogs => this.processBlogs(blogs))
-    );
-  }
+  // private getBlogsForDev(): Observable<IBlog[]> {
+  //   return this.http.get<IBlog[]>(this.apiUrl).pipe(
+  //     map(blogs => this.processBlogs(blogs))
+  //   );
+  // }
 
   private getBlogsForProd(): Observable<IBlog[]> {
     return from(this.getResponseJsonFromAmplify()).pipe(

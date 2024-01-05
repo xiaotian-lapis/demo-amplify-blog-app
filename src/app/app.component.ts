@@ -1,6 +1,6 @@
 import { Component, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from './shared/ui/footer/footer.component';
 import { HeaderComponent } from './shared/ui/header/header.component';
 import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
@@ -9,6 +9,7 @@ import awsExports from '../aws-exports';
 import { signUp, signIn, confirmSignIn } from 'aws-amplify/auth';
 import { SignUpParameters } from './core/auth/signup.type';
 import { RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
   constructor(
     public authenticator: AuthenticatorService,
     protected recaptchaV3Service: ReCaptchaV3Service,
+    private router: Router,
   ) {
     Amplify.configure(awsExports);
   }
@@ -50,7 +52,7 @@ export class AppComponent {
     handleSignIn: async (formData: Record<string, any>) => {
       try {
         const { username, password } = formData;
-        const signInOutput = await signIn({
+        let signInOutput = await signIn({
           username,
           password,
           options: {
@@ -59,12 +61,11 @@ export class AppComponent {
         });
 
         if (signInOutput.nextStep.signInStep === 'CONFIRM_SIGN_IN_WITH_CUSTOM_CHALLENGE') {
-          this.recaptchaV3Service.execute('login').subscribe((token) => {
-            this.handleRecaptchaConfirmSignIn(token);
-          }
-          );
+          const challengeResponse = await firstValueFrom(this.recaptchaV3Service.execute('login'));
+          signInOutput = await this.handleRecaptchaConfirmSignIn(challengeResponse);
         }
 
+        console.log('Sign In Success', signInOutput);
         return signInOutput;
 
       } catch (e) {
@@ -77,10 +78,13 @@ export class AppComponent {
 
   protected async handleRecaptchaConfirmSignIn(event: any) {
     try {
-      await confirmSignIn({ challengeResponse: event });
+      const confirmSignInOutput = await confirmSignIn({ challengeResponse: event });
+      console.log('Confirm Sign In Success', confirmSignInOutput);
+      return confirmSignInOutput;
     } catch (e) {
       console.log('Confirm Sign In Failed', e);
       this.flag = true;
+      throw e;
     }
   }
 
