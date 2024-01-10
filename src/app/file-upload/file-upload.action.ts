@@ -2,6 +2,16 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadFiles = createAction('[File] Load Files');
 
+export const loadFilesSuccess = createAction(
+  '[File API] Load Files Success',
+  props<{ files: any[] }>(),
+);
+
+export const loadFilesError = createAction(
+  '[File API] Load Files Error',
+  props<{ error: { message: string } }>(),
+);
+
 export const uploadFile = createAction(
   '[File] Upload File',
   props<{
@@ -12,7 +22,7 @@ export const uploadFile = createAction(
 
 export const uploadFileSuccess = createAction(
   '[File API] Upload File Success',
-  props<{ fileUrl: string }>(),
+  props<{ msg: string }>(),
 );
 
 export const uploadFileError = createAction(

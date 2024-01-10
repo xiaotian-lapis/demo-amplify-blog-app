@@ -23,7 +23,8 @@ export class FileUploadService {
     );
   }
 
-  public listFiles(prefix: string): Observable<StorageItem[]> {
+  public listFiles(): Observable<StorageItem[]> {
+    const prefix = 'files/';
     return from(this.__listFiles(prefix)).pipe(
       map(listOutput => {
         if (listOutput) {
